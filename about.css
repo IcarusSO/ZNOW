@@ -1,0 +1,59 @@
+.character{
+	display:inline-block;
+	width:250px;
+	margin:30px 100px 0 0;
+	vertical-align:top;
+	text-align: justify;
+	line-height:130%;
+}
+
+.character h6{
+	font-size:20px;
+	line-height:180%;
+}
+
+#characters{
+	margin-top:30px;
+	margin-bottom:30px;
+}
+
+.comprehensive{
+	vertical-align:top;
+	display:inline-block;
+	width:220px;
+	margin:30px 20px;
+	line-height:130%;
+}
+
+.comprehensive h6{
+	font-size:20px;
+	line-height:180%;
+}
+
+.uniqueness{
+	vertical-align:top;
+	display:inline-block;
+	width:260px;
+	margin:30px 80px 30px 20px;
+	line-height:130%;
+}
+
+.uniqueness h6{
+	font-size:20px;
+	line-height:180%;
+}
+
+h3{
+	margin-top:110px;
+	color:rgb(45, 27, 27);
+	text-transform: uppercase;
+}
+.h3part{
+	font-style:italic;
+	font-size:13px;
+	line-height:130%;
+}
+.section{
+	margin-top:30px;
+	line-height:130%;
+}

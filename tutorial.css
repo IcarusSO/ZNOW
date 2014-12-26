@@ -1,0 +1,43 @@
+#mainTable{
+	text-align:center;
+}
+#chapters{
+	margin-top:50px;
+}
+
+.chapter{
+	display:inline-block;
+	width:200px;
+	border:2px solid black;
+	vertical-align:top;
+	margin:0 30px;
+	height:160px;
+	position:relative;
+	transition-duration: 1s;
+	cursor:pointer;
+}
+
+.chapter:hover{
+	
+}
+
+.chapter .cover{
+	position:absolute;
+	width:200px;
+	height:160px;
+	top:0;
+	left:0;
+}
+
+.colorPlate{
+    text-align: justify;
+    text-justify: inter-word;
+	display:inline-block;
+	width:250px;
+	vertical-align:top;
+	margin:0 50px;
+	padding:15px;
+	height:100px;
+	line-height:130%;
+	/*border: 2px solid black;*/
+}
