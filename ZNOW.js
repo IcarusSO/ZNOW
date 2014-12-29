@@ -1,8 +1,8 @@
 /**
- * ZNOW JavaScript Framework v0.2.0
+ * ZNOW JavaScript Framework v0.2.1
  * Copyright 2014, Icarus So
  * Licensed under the MIT or GPL Version 2 licenses.
- * Date: Dec 26 2014
+ * Date: Dec 29 2014
  *
  * Copyright (C) 2014 by Icarus So
  *
@@ -25,4 +25,783 @@
  * THE SOFTWARE.
  */
 
-(function(){if(typeof console==="undefined"||typeof console.log==="undefined"){console={};console.log=function(){}}var e=function(){};var t=function(){return e};var n=function(e){return{val:e===undefined?null:e,__read:true}};var r=function(e){return{val:e===undefined?null:e,__const:true}};var i=function(){};var s=function(e){e.__final=true;return e};var o=function(e){e.__virtual=true;return e};var u=function(e){var t="";var n=/^[_|$]*/.exec(e)[0];t="$"+n+"on"+e.charAt(n.length).toUpperCase()+e.substr(n.length+1);return t};var a=function(e,n){var r={};for(var s in e){if(/^static./.test(s))continue;if(!(e[s]instanceof Function))continue;if(/^__/.test(s))continue;if(e[s]==t()){r[s]=t();continue}if(e[s]==i){r[u(s)]=function(e){return function(){var t=arguments;var n=true;this["$$"+e].forEach(function(e){if(!n)return;n=!(e.apply(this,t)===false)});return n}}(s);continue}r[s]=function(t){return function(){return e[t].apply(this,arguments)}}(s);if(e[s].__final)r[s].__final=true}if(!r["init"]&&!r["$init"]&&!r["_init"]){r["init"]=function(){if(n.__baseClass)this.super.apply(this,arguments)}}if(n.__baseClass){var o=n.__baseClass.__methodSet;for(var s in o){if(!(o[s]instanceof Function))continue;if(s[0]=="_")continue;if(r.hasOwnProperty(s)&&o[s].__final){throw new Error("WARN:: final mehtod cannot be overrided "+s)}if(r.hasOwnProperty(s))continue;if(/^[_|$]?init$/.test(s))continue;if(e[s]==t()){r[s]=t();continue}r[s]=function(e){return function(){return o[e].apply(this,arguments)}}(s)}}for(var s in r){r[s]["_"]=n}return r};var f=function(e){var t=function(t){for(var n in e){if(/^static./.test(n))continue;if(e[n]instanceof Function&&e[n]!=i)continue;if(/^__/.test(n))continue;if(e[n].__read){this[n]=e[n].val;this["__read"+n]=true;continue}if(e[n].__const){this[n]=e[n].val;this["__const"+n]=true;continue}if(e[n]==i){this["$$"+n]=[];continue}this[n]=e[n]}if(t){for(var n in t){if(n[0]=="_")continue;if(e[n])continue;Object.defineProperty(this,n,{get:function(e){return function(){return t[e]}}(n),set:function(e){return function(n){if(t["__read"+e]&&e[0]=="$"){console.warn("WARN:: accessing read only attr "+e);return}return t[e]=n}}(n)})}}};return t};var l=function(e,t,n){if(!e)return false;if(e["_"]){var r=e["_"];if(n[0]=="_"){return r==t}do{if(r==t)return e["_"];r=r.__baseClass}while(r);return false}return l(e.caller,t,n)};var c=function(e,n){var r={};var s=[];for(var o in e){if(!/^static./.test(o))continue;var a=o.substr(7);if(e[o].__const){r[a]=e[o].val;r["__const"+a]=true}else if(e[o].__read){r[a]=e[o].val;r["__read"+a]=true}else if(e[o]==i){s.push(a)}else if(e[o]==t()){throw new Error("static method cannot be abstract "+a)}else{r[a]=e[o]}if(r[a]instanceof Function)r[a]["_"]=n}for(var f=0;f<s.length;f++){var a=s[f];r["$$"+a]=[];r[u(a)]=function(e){return function(){var t=arguments;var n=true;this["$$"+e].forEach(function(e){if(!n)return;n=!(e.apply(this,t)===false)});return n}}(a);r[u(a)]["_"]=n}r.on=function(e,t,n){if(this["$$"+e]&&this["$$"+e].indexOf(t)==-1){if(n)this["$$"+e].unshift(t);else this["$$"+e].push(t);return t}return false};r.on["_"]=n;r.off=function(e,t){if(this["$$"+e]&&this["$$"+e].indexOf(t)!=-1){var n=this["$$"+e].indexOf(t);this["$$"+e].splice(n,1);return true}return false};r.off["_"]=n;if(n.__baseClass){var c=n.__baseClass.__staticSet;var h=n.__baseClass;for(var o in c){if(c[o]instanceof Function&&r.hasOwnProperty(o)&&h[o].__final){throw new Error("WARN:: final static method cannot be overrided "+o)}if(r.hasOwnProperty(o))continue;if(c[o]instanceof Function){r[o]=function(e){return function(){return h[e].apply(this,arguments)}}(o);r[o]["_"]=n}else{Object.defineProperty(r,o,{get:function(e){return function(){return h[e]}}(o),set:function(e){return function(t){return h[e]=t}}(o)})}}}for(var o in r){if(r[o]instanceof Function){n[o]=function(e){return function(){if(!/^[_|$]/.test(e)||l(arguments.callee.caller,n,e)){return r[e].apply(this,arguments)}else{console.warn("WARN:: cannnot access static method "+e)}}}(o);if(r[o].__final)n[o].__final=true}else{Object.defineProperty(n,o,{get:function(e){return function(){if(!/^[_|$]/.test(e)||l(arguments.callee.caller,n,e)){return r[e]}else{console.warn("WARN:: cannnot access static attribute "+e)}}}(o),set:function(e){console.log(e);if(r["__const"+e]){return function(){console.warn("WARN:: cannot change const static attribute "+e)}}if(r["__read"+e]){return function(t){var i=l(arguments.callee.caller,n,e);if(!i){console.warn("WARN:: cannot change readonly attribute "+e)}else if(e[0]=="$"&&i!=n){console.warn("WARN:: cannot change readonly attribute "+e)}else{return r[e]=t}}}return function(t){if(!/^[_|$]/.test(e)||l(arguments.callee.caller,n,e)){return r[e]=t}else{console.warn("WARN:: cannnot access static attribute "+e)}}}(o)})}}return r};var h=function(e){var t=[];do{t.push(e);e=e.__baseClass}while(e);return t.reverse()};var p=function(e){var t=[];t[0]=new e[0].__attrTemp;for(var n=1;n<e.length;n++){t[n]=new e[n].__attrTemp(t[n-1])}for(var n=0;n<t.length;n++){var r=t[n];for(var i in r){if(Array.isArray(r[i])){r[i]=r[i].slice()}else if(r[i]instanceof Object){if(Object.keys(r[i]).length==0){r[i]={}}}}}return t};var d=function(e){return e.map(function(e){return e.__methodSet})};var v=function(e,t){var n={};for(var r=e.length-1;r>=0;r--){var i=e[r];var s=t[r];for(var o in i){if(n.hasOwnProperty(o))continue;n[o]=i[o]}for(var o in s){if(n.hasOwnProperty(o))continue;n[o]=s[o]}}return n};var m=function(e,t){if(!e)return-1;if(e["_"]){return t.indexOf(e["_"])}return m(e.caller,t)};var g=function(e,n,r){while(r[e][n]==t()){e++}return e};var y=function(e,t,n){while(n[e][t].__virtual&&e<n.length){e++}return e};var b=function(e,t,n){if(t[0]!="_")return n.length-1;return e};var w=function(e,n,r,i){var s=function(){var e=m(arguments.callee.caller,i);var t=arguments[0];t["_"]=i[e];return t};s.__initialized=false;for(var o in e){if(e[o]instanceof Function){s[o]=function(e){return function(){var t=m(arguments.callee.caller,i);if(t==-1){if(e[0]=="_"||e[0]=="$"){console.warn("WARN:: public accessing private or protected method "+e)}else{var t=n.length-1;return n[t][e].apply(s,arguments)}}else{if(n[t].hasOwnProperty(e)){t=b(t,e,n);return n[t][e].apply(s,arguments)}else{if(e[0]=="_"||e[0]=="$"){console.warn("WARN:: base accessing extended private or protected method "+e)}else{var t=n.length-1;return n[t][e].apply(s,arguments)}}}}}(o)}else{Object.defineProperty(s,o,{get:function(e){return function(){var t=m(arguments.callee.caller,i);if(t==-1){if(e[0]=="_"||e[0]=="$"){console.warn("WARN:: public accessing private or protected method "+e)}else{var t=r.length-1;return r[t][e]}}else{if(r[t].hasOwnProperty(e)){return r[t][e]}else{if(e[0]=="_"||e[0]=="$"){console.warn("WARN:: base accessing extended private or protected attribute "+e)}else{var t=n.length-1;return r[t][e]}}}}}(o),set:function(e){return function(t){var o=m(arguments.callee.caller,i);if(o==-1){if(e[0]=="_"||e[0]=="$"){console.warn("WARN:: public accessing private or protected method "+e)}else{var o=r.length-1;if(r[o]["__read"+e]){console.warn("WARN:: public accessing read only attribute "+e);return}if(s.__initialized&&r[o]["__const"+e]){console.warn("WARN:: cannot change cost attribute "+e);return}return r[o][e]=t}}else{if(s.__initialized&&r[o]["__const"+e]){console.warn("WARN:: cannot change cost attribute "+e);return}if(r[o].hasOwnProperty(e)){return r[o][e]=t}else{if(e[0]=="_"||e[0]=="$"){console.warn("WARN:: base accessing extended private or protected attribute "+e)}else{var o=n.length-1;if(r[o]["__read"+e]){console.warn("WARN:: accessing read only attribute "+e);return}return r[o][e]=t}}}}}(o)})}}var u=function(){var e=m(arguments.callee.caller,i);E(n,e-1,s,arguments)};for(var o in e){if(e[o]instanceof Function){u[o]=function(e){return function(){var r=m(arguments.callee.caller,i);if(n[r].hasOwnProperty(e)){if(n[r-1][e]==t()){r=g(r-1,e,n);return n[r][e].apply(s,arguments)}return n[r-1][e].apply(s,arguments)}else{console.warn("WARN:: super does not have such method "+e)}}}(o)}else{Object.defineProperty(u,o,{get:function(e){return function(){var t=m(arguments.callee.caller,i);if(r[t].hasOwnProperty(e)){return r[t-1][e]}else{console.warn("WARN:: super does not have such attr "+e)}}}(o),set:function(e){return function(t){var n=m(arguments.callee.caller,i);if(r[n].hasOwnProperty(e)){if(r[n-1]["__read"+e]){console.warn("WARN:: accessing read only attribute "+e);return}if(s.__initialized&&r[n]["__const"+e]){console.warn("WARN:: cannot change cost attribute "+e);return}return r[n-1][e]=t}else{console.warn("WARN:: super does not have such attr "+e)}}}(o)})}}Object.defineProperty(s,"super",{get:function(){var e=m(arguments.callee.caller,i);if(e==-1){console.warn("WARN:: public access super")}else if(e==0){console.warn("WARN:: no super for this class")}else{return u}}});s.on=function(e,t,n){if(this["$$"+e]&&this["$$"+e].indexOf(t)==-1){if(n)this["$$"+e].unshift(t);else this["$$"+e].push(t);return t}return false};s.on["_"]=i[0];s.off=function(e,t){if(this["$$"+e]&&this["$$"+e].indexOf(t)!=-1){var n=this["$$"+e].indexOf(t);this["$$"+e].splice(n,1);return true}return false};s.off["_"]=i[0];s.class=i[i.length-1];s.instanceOf=function(e){return i.indexOf(e)!=-1};return s};var E=function(e,t,n,r){if(e[t].hasOwnProperty("init")){e[t].init.apply(n,r)}else if(e[t].hasOwnProperty("$init")){e[t].$init.apply(n,r)}else if(e[t].hasOwnProperty("_init")){e[t]._init.apply(n,r)}n.__initialized=true};var S=function(e,n){for(var r in e){if(e[r]==t()){throw new Error("WARN:: some methods have not been implemented "+r)}}for(var r in n){if(!e[r])throw new Error("some methods have not been implemented "+r)}};var x=function(e,t){var n={};for(var r=0;r<e.length;r++){var i=e[r];for(var s in i){n[s]=true}}for(var s in t){if(!n[s])throw new Error("some methods have not been implemented "+s)}};var T=function(e){if(!(e instanceof Array))e=[e];var t={};for(var n=0;n<e.length;n++){var r=e[n];for(var i in r){t[i]=r[i]}}return t};var N=function(e){var t={};for(var n in e){t[n]=e[n]}return t};var C=function(e){var t=function(){if(!(this instanceof t)){var e=arguments[0];if(e instanceof Function){e["_"]=t;return e}throw new Error("Class must be initialized with new operator")}var i=p(n);var s=v(r,i);S(s,t.__intf);var o=w(s,r,i,n);E(r,r.length-1,o,arguments);return o};if(e.__baseClass)t.__baseClass=e.__baseClass;t.__methodSet=a(e,t);t.__attrTemp=f(e);t.__module=e;t.__staticSet=c(e,t);t.__intf=e.__intf;var n=h(t);var r=d(n);x(r,t.__intf);return t};C.extends=function(e){var t=function(t){var n=N(t);n.__baseClass=e;return C(n)};t.implements=function(t){return function(n){var r=N(n);r.__baseClass=e;r.__intf=T(t);return C(r)}};return t};C.implements=function(e){var t=T(e);return function(e){e.__intf=t;return C(e)}};C.pretends=function(e){var t=function(t){var n=N(e.__module);for(var r in t){n[r]=t[r]}return C(n)};t.implements=function(t){return function(n){var r=N(e.__module);for(var i in n){r[i]=n[i]}r.__intf=T(t);return C(r)}};return t};var k=function(e){var n={};for(var r in e){if(r[0]=="_")throw new Error("Interface cannot declare private methods; invalid method "+r);if(e[r]!=t()&&e[r]!=i)throw new Error("Interface methods must be abstract; invalid method "+r);n[r]=t()}return n};k.extends=function(e){if(!(e instanceof Array))e=[e];return function(t){e.push(t);var n={};for(var r=0;r<e.length;r++){var i=e[r];for(var s in i){n[s]=i[s]}}return k(n)}};var L;if(typeof window!=="undefined"){L=window}else if(typeof GLOBAL!=="undefined"){L=GLOBAL}L.ABSTRACT=t;L.READ=n;L.CONST=r;L.EVENT=i;L.FINAL=s;L.Class=C;L.Interface=k})()
+(function(){
+	if (typeof console === "undefined" || typeof console.warn === "undefined"){
+		console={};
+		console.warn=function(){};
+	}
+
+
+	var __ZNOW__abastract=function(){/*ABSTRACT*/}
+	var ABSTRACT=function(){ return __ZNOW__abastract;};
+
+	var READ=function(val){ return{ 'val':val===undefined?null:val, '__read':true} };
+
+	var CONST=function(val){ return{ 'val':val===undefined?null:val, '__const':true} };
+
+	var EVENT=function(){ /*EVENT_LISTENER*/};
+
+	var FINAL=function(f){
+		f.__final=true;
+		return f;
+	}
+
+	/*Deprecated*/ var VIRTUAL=function(f){
+		f.__virtual=true;
+		return f;
+	}
+
+	var genEventStr=function(name){
+		var newName='';
+		var prefix=/^[_|$]*/.exec(name)[0];
+		newName='$'+prefix+'on'+name.charAt(prefix.length).toUpperCase()+name.substr(prefix.length+1);
+		return newName;
+	}
+
+	var genMethodSet=function(module, rtn){
+		var methodSet={};
+		for(var prop in module){
+			if(/^static./.test(prop)) continue;
+			if(!(module[prop] instanceof Function)) continue;
+			if(/^__/.test(prop)) continue;
+			
+			if(module[prop]==ABSTRACT()){
+				methodSet[prop]=ABSTRACT();
+				continue;
+			}
+			if(module[prop]==EVENT ){
+				methodSet[genEventStr(prop)]=function(prop){
+					return function(){
+						var _args=arguments;
+						var _continue=true;
+						this['$$'+prop].forEach(function(callback){
+							if(!_continue) return;
+							_continue = !(callback.apply(this, _args)===false);
+						})
+						return _continue;
+					}
+				}(prop);
+				continue;
+			}
+			
+			methodSet[prop]=function(prop){
+				return function(){ return module[prop].apply(this, arguments);}
+			}(prop);
+			if(module[prop].__final) methodSet[prop].__final=true;
+		}
+		
+		if(!methodSet['init'] && !methodSet['$init']  && !methodSet['_init'] ){
+			methodSet['init']=function(){
+				if(rtn.__baseClass) this.super.apply(this, arguments);
+			}
+		}
+		
+		if(rtn.__baseClass){
+			var baseMethodSet=rtn.__baseClass.__methodSet;
+			for(var prop in baseMethodSet){
+				if(!(baseMethodSet[prop] instanceof Function)) continue;
+				if(prop[0]=='_') continue;
+				if(methodSet.hasOwnProperty(prop) && baseMethodSet[prop].__final){
+					throw new Error('WARN:: final mehtod cannot be overrided '+prop);
+				};
+				if(methodSet.hasOwnProperty(prop)) continue;
+				if(/^[_|$]?init$/.test(prop)) continue;
+			
+				if(module[prop]==ABSTRACT()){
+					methodSet[prop]=ABSTRACT();
+					continue;
+				}
+				
+				methodSet[prop]=function(prop){
+					return function(){ return baseMethodSet[prop].apply(this, arguments);}
+				}(prop);
+			}
+		}
+		
+		for(var prop in methodSet){
+			methodSet[prop]['_']=rtn;
+		}	
+		return methodSet;
+	}
+
+	var genAttrTemp=function(module){
+		var attrTemp=function(baseAttrSet){
+			for(var prop in module){
+				if(/^static./.test(prop)) continue;
+				if(module[prop] instanceof Function && module[prop]!=EVENT ) continue;
+				if(/^__/.test(prop)) continue;
+				if(module[prop].__read){
+					this[prop]=module[prop].val;
+					this['__read'+prop]=true;
+					continue;
+				}
+				if(module[prop].__const){
+					this[prop]=module[prop].val;
+					this['__const'+prop]=true;
+					continue;				
+				}
+				if(module[prop]==EVENT ){
+					this['$$'+prop]=[];
+					continue;
+				}
+				this[prop]=module[prop];
+			}
+			if(baseAttrSet){
+				for(var prop in baseAttrSet){
+					if(prop[0]=='_') continue;
+					if(module[prop]) continue;				
+					Object.defineProperty(this, prop, {
+						get:function(prop){
+							return function(){
+								return baseAttrSet[prop];
+							}
+						}(prop),
+						set:function(prop){
+							return function(value){
+								if(baseAttrSet['__read'+prop] && prop[0]=='$'){
+									console.warn('WARN:: accessing read only attr '+prop);
+									return;
+								}
+								return (baseAttrSet[prop]=value);
+							}
+						}(prop)
+					})
+				}
+			}
+		}
+		return attrTemp;
+	}
+
+	var canAccess=function(caller, sign, prop){
+		if(!caller) return false;
+		if(caller['_']){
+			var _class=caller['_'];
+			if(prop[0]=='_'){
+				return _class==sign;
+			}
+			do{
+				if(_class==sign) return caller['_'];
+				_class=_class.__baseClass;
+			}while(_class)
+			return false;
+		}
+		return canAccess(caller.caller, sign, prop);
+	}
+
+	var genStaticPropSet=function(module, rtn){
+		var propSet={};
+		var eventArr=[];
+		for(var prop in module){
+			if(!/^static./.test(prop)) continue;
+			var propName=prop.substr(7);
+			if(module[prop].__const){
+				propSet[propName]=module[prop].val;
+				propSet['__const'+propName]=true;
+			}else if(module[prop].__read){
+				propSet[propName]=module[prop].val;
+				propSet['__read'+propName]=true;			
+			}else if(module[prop]==EVENT){
+				eventArr.push(propName);
+			}else if(module[prop]==ABSTRACT()){
+				throw new Error('static method cannot be abstract '+propName);
+			}else{
+				propSet[propName]=module[prop];
+			}
+			if(propSet[propName] instanceof Function) propSet[propName]['_']=rtn;
+		}
+		
+		for(var i=0; i<eventArr.length; i++){
+			var propName=eventArr[i];
+			
+			propSet['$$'+propName]=[];
+			propSet[genEventStr(propName)]=function(propName){
+				return function(){
+					var _args=arguments;
+					var _continue=true;
+					this['$$'+propName].forEach(function(callback){
+						if(!_continue) return;
+						_continue = !(callback.apply(this, _args)===false);
+					})
+					return _continue;
+				}
+			}(propName);
+			propSet[genEventStr(propName)]['_']=rtn
+		}
+		
+		propSet.on=function(eventStr, callback, first){
+			if( this['$$'+eventStr] && this['$$'+eventStr].indexOf(callback)==-1){
+				if (first) this['$$'+eventStr].unshift(callback)
+				else this['$$'+eventStr].push(callback);
+				return callback;
+			}
+			return false;
+		};
+		propSet.on['_']=rtn;
+		
+		propSet.off=function(eventStr, callback){
+			if( this['$$'+eventStr] && this['$$'+eventStr].indexOf(callback)!=-1){
+				var index=this['$$'+eventStr].indexOf(callback);
+				this['$$'+eventStr].splice(index, 1);
+				return true;
+			}
+			return false;
+		};
+		propSet.off['_']=rtn;	
+		
+		if(rtn.__baseClass){
+			var basePropSet=rtn.__baseClass.__staticSet;
+			var baseClass = rtn.__baseClass;
+			for(var prop in basePropSet){
+				if(basePropSet[prop] instanceof Function && propSet.hasOwnProperty(prop) && baseClass[prop].__final){
+					throw new Error('WARN:: final static method cannot be overrided '+prop);
+				}
+				if(propSet.hasOwnProperty(prop)) continue;
+				if(basePropSet[prop] instanceof Function){
+					propSet[prop]=function(prop){
+						return function(){ return baseClass[prop].apply(this, arguments)};
+					}(prop);
+					propSet[prop]['_']=rtn;
+				}else{
+					Object.defineProperty(propSet, prop, {
+						get:function(prop){
+							return function(){ return baseClass[prop]; }
+						}(prop),
+						set:function(prop){
+							return function(value){ return (baseClass[prop]=value)};
+						}(prop)
+					})
+				}
+			}
+		}
+		
+		for(var prop in propSet){
+			if(propSet[prop] instanceof Function){
+				rtn[prop]=function(prop){
+					return function(){
+						if(!/^[_|$]/.test(prop) || canAccess(arguments.callee.caller, rtn, prop)){
+							return propSet[prop].apply(this, arguments);
+						}else{
+							console.warn('WARN:: cannnot access static method '+prop);
+						}
+					}
+				}(prop);
+				if(propSet[prop].__final) rtn[prop].__final=true;
+			}else{
+				Object.defineProperty(rtn, prop, {
+					get:function(prop){
+						return function(){
+							if(!/^[_|$]/.test(prop) || canAccess(arguments.callee.caller, rtn, prop)){
+								return propSet[prop];
+							}else{
+								console.warn('WARN:: cannnot access static attribute '+prop);
+							}					
+						}
+					}(prop),
+					set:function(prop){
+						if(propSet['__const'+prop]){
+							return function(){
+								console.warn('WARN:: cannot change const static attribute '+prop);
+							}
+						}
+						if(propSet['__read'+prop]){
+							return function(value){
+								var caller=canAccess(arguments.callee.caller, rtn, prop);
+								if(!caller){
+									console.warn('WARN:: cannot change readonly attribute '+prop);								
+								}else if(prop[0]=='$' && caller!=rtn){
+									console.warn('WARN:: cannot change readonly attribute '+prop);								
+								}else{
+									return (propSet[prop]=value);
+								}
+							}
+						}
+						return function(value){
+							if(!/^[_|$]/.test(prop) || canAccess(arguments.callee.caller, rtn, prop)){
+								return (propSet[prop]=value);
+							}else{
+								console.warn('WARN:: cannnot access static attribute '+prop);
+							}					
+						}				
+					}(prop)
+				})
+			}
+		}
+		return propSet;
+	}
+
+	var getClassArr=function(ptClass){
+		var arr=[];
+		do{
+			arr.push(ptClass);
+			ptClass=ptClass.__baseClass
+		}while(ptClass);
+		return arr.reverse();
+	}
+
+	var genAttrSet=function(classArr){
+		var arr=[];
+		arr[0]=new (classArr[0].__attrTemp)();
+		for(var i=1; i<classArr.length; i++){
+			arr[i]=new classArr[i].__attrTemp(arr[i-1]);
+		}
+			
+		for(var i=0; i<arr.length; i++){
+			var attrSet=arr[i];
+			for(var prop in attrSet){
+				if(Array.isArray(attrSet[prop])){
+					attrSet[prop]=attrSet[prop].slice();
+				}else if(attrSet[prop] instanceof Object){
+					if(Object.keys(attrSet[prop]).length == 0){
+						attrSet[prop]={};
+					}
+				}
+			}
+		}
+		
+		return arr;
+	}
+
+	var getMethodSetArr=function(classArr){
+		/*
+		var arr=[];
+		for(var i=0; i<classArr.length; i++){
+			arr.push(classArr[i].__methodSet);
+		}
+		return arr;
+		*/
+		return classArr.map(function(ptClass){ return ptClass.__methodSet;});
+	}
+
+	var getExtendedModule=function(methodSetArr, attrSetArr){
+		var extendedModule={};
+		for(var i=methodSetArr.length-1;i>=0; i--){
+			var methodSet=methodSetArr[i];
+			var attrSet=attrSetArr[i];
+			
+			for(var prop in methodSet){
+				if(extendedModule.hasOwnProperty(prop)) continue;
+				extendedModule[prop]=methodSet[prop];
+			}
+			
+			for(var prop in attrSet){
+				if(extendedModule.hasOwnProperty(prop)) continue;
+				extendedModule[prop]=attrSet[prop]
+			}
+		}
+		return extendedModule;
+	}
+
+	var checkCaller=function(caller, classArr){
+		if(!caller) return -1;
+		if(caller['_']){
+			return classArr.indexOf(caller['_']);
+		}
+		return checkCaller(caller.caller, classArr);
+	}
+
+	var checkAbstractExpt=function(index, prop, methodSetArr){
+		while(methodSetArr[index][prop]==ABSTRACT()){
+			index++;
+		}
+		return index;
+	}
+
+	var checkVirtualExpt=function(index, prop, methodSetArr){
+		while(methodSetArr[index][prop].__virtual && index<methodSetArr.length){
+			index++;
+		}
+		return index;
+	}
+
+	var allVirtualExpt=function(index, prop, methodSetArr){
+		//console.warn('allVirtualExpt');
+		if(prop[0]!='_') return methodSetArr.length-1;
+		return index;
+	}
+
+	var genAccessor=function(extendedModule, methodSetArr, attrSetArr, classArr){
+		var accessor=function(){
+			var index=checkCaller(arguments.callee.caller, classArr);
+			var f=arguments[0];
+			f['_']=classArr[index];
+			return f;
+		};
+		accessor.__initialized=false;
+		
+		for(var prop in extendedModule){
+			if(extendedModule[prop] instanceof Function){
+				accessor[prop]=function(prop){
+					return function(){
+						var index=checkCaller(arguments.callee.caller, classArr);
+						if(index==-1){
+							// public access
+							if(prop[0]=='_' || prop[0]=='$'){
+								console.warn('WARN:: public accessing private or protected method '+prop);
+							}else{
+								var index=methodSetArr.length-1;
+								return methodSetArr[index][prop].apply(accessor, arguments);
+							}
+						}else{
+							if(methodSetArr[index].hasOwnProperty(prop)){
+								//index=checkAbstractExpt(index, prop, methodSetArr);
+								//index=checkVirtualExpt(index, prop, methodSetArr);
+								index=allVirtualExpt(index, prop, methodSetArr);
+								return methodSetArr[index][prop].apply(accessor, arguments);
+							}else{
+								// instance has no such method
+								if(prop[0]=='_' || prop[0]=='$'){
+									console.warn('WARN:: base accessing extended private or protected method '+prop);							
+								}else{
+									var index=methodSetArr.length-1;
+									return methodSetArr[index][prop].apply(accessor, arguments);							
+								}
+							}
+						}
+					}
+				}(prop)
+			}else{
+				Object.defineProperty(accessor, prop, {
+					get:function(prop){
+						return function(){
+							var index=checkCaller(arguments.callee.caller, classArr);
+							if(index==-1){
+								// public access
+								if(prop[0]=='_' || prop[0]=='$'){
+									console.warn('WARN:: public accessing private or protected method '+prop);	
+								}else{
+									var index=attrSetArr.length-1;
+									return attrSetArr[index][prop];
+								}
+							}else{
+								if(attrSetArr[index].hasOwnProperty(prop)){
+									return attrSetArr[index][prop];
+								}else{
+									// instance has no such attribute
+									if(prop[0]=='_' || prop[0]=='$'){
+										console.warn('WARN:: base accessing extended private or protected attribute '+prop);							
+									}else{
+										var index=methodSetArr.length-1;
+										return attrSetArr[index][prop];						
+									}							
+								}
+							}
+						}
+					}(prop),
+					set:function(prop){
+						return function(value){
+							var index=checkCaller(arguments.callee.caller, classArr);
+							if(index==-1){
+								// public access
+								if(prop[0]=='_' || prop[0]=='$'){
+									console.warn('WARN:: public accessing private or protected method '+prop);	
+								}else{
+									var index=attrSetArr.length-1;
+									if(attrSetArr[index]['__read'+prop]){
+										console.warn('WARN:: public accessing read only attribute '+prop);
+										return;
+									}
+									if(accessor.__initialized && attrSetArr[index]['__const'+prop]){
+										console.warn('WARN:: cannot change cost attribute '+prop);
+										return;
+									}
+									return (attrSetArr[index][prop]=value);
+								}
+							}else{
+								if(accessor.__initialized && attrSetArr[index]['__const'+prop]){
+									console.warn('WARN:: cannot change cost attribute '+prop);
+									return;
+								}
+								if(attrSetArr[index].hasOwnProperty(prop)){
+									return (attrSetArr[index][prop]=value);
+								}else{
+									// instance has no such attribute
+									if(prop[0]=='_' || prop[0]=='$'){
+										console.warn('WARN:: base accessing extended private or protected attribute '+prop);							
+									}else{
+										var index=methodSetArr.length-1;
+										if(attrSetArr[index]['__read'+prop]){
+											console.warn('WARN:: accessing read only attribute '+prop);
+											return;
+										}
+										return (attrSetArr[index][prop]=value);				
+									}							
+								}
+							}
+						}		
+					}(prop)
+				})
+			}	
+		}
+		
+		var _super=function(){
+			var index=checkCaller(arguments.callee.caller, classArr);
+			initClass(methodSetArr, index-1, accessor, arguments);
+		};
+		
+		for(var prop in extendedModule){
+			if(extendedModule[prop] instanceof Function){
+				_super[prop]=function(prop){
+					return function(){
+						var index=checkCaller(arguments.callee.caller, classArr);					
+						if(methodSetArr[index].hasOwnProperty(prop)){
+							if(methodSetArr[index-1][prop]==ABSTRACT()){
+								index=checkAbstractExpt(index-1, prop, methodSetArr);
+								return methodSetArr[index][prop].apply(accessor, arguments);
+							}
+							return methodSetArr[index-1][prop].apply(accessor, arguments);
+						}else{
+							console.warn('WARN:: super does not have such method '+prop);		
+						}
+					}
+				}(prop)
+			}else{
+				Object.defineProperty(_super, prop, {
+					get:function(prop){
+						return function(){
+							var index=checkCaller(arguments.callee.caller, classArr);						
+							if(attrSetArr[index].hasOwnProperty(prop)){
+								return attrSetArr[index-1][prop];
+							}else{
+								console.warn('WARN:: super does not have such attr '+prop);							
+							}
+						}
+					}(prop),
+					set:function(prop){
+						return function(value){
+							var index=checkCaller(arguments.callee.caller, classArr);						
+							if(attrSetArr[index].hasOwnProperty(prop)){
+								if(attrSetArr[index-1]['__read'+prop]){
+									console.warn('WARN:: accessing read only attribute '+prop);
+									return;
+								}
+								if(accessor.__initialized && attrSetArr[index]['__const'+prop]){
+									console.warn('WARN:: cannot change cost attribute '+prop);
+									return;
+								}
+								return (attrSetArr[index-1][prop]=value);
+							}else{
+								console.warn('WARN:: super does not have such attr '+prop);							
+							}							
+						}		
+					}(prop)
+				})
+			}	
+		}	
+		
+		Object.defineProperty(accessor, 'super', {
+			get:function(){
+				var index=checkCaller(arguments.callee.caller, classArr);
+				if(index==-1){
+					console.warn('WARN:: public access super');
+				}else if(index==0){
+					console.warn('WARN:: no super for this class');			
+				}else{
+					return _super;
+				}
+			}
+		})
+		
+		accessor.on=function(eventStr, callback, first){
+			if( this['$$'+eventStr] && this['$$'+eventStr].indexOf(callback)==-1){
+				if (first) this['$$'+eventStr].unshift(callback)
+				else this['$$'+eventStr].push(callback);
+				return callback;
+			}
+			return false;
+		};
+		accessor.on['_']=classArr[0];
+		
+		accessor.off=function(eventStr, callback){
+			if( this['$$'+eventStr] && this['$$'+eventStr].indexOf(callback)!=-1){
+				var index=this['$$'+eventStr].indexOf(callback);
+				this['$$'+eventStr].splice(index, 1);
+				return true;
+			}
+			return false;
+		};
+		accessor.off['_']=classArr[0];	
+		
+		accessor.class=classArr[classArr.length-1];
+		accessor.instanceOf=function(checkClass){
+			return classArr.indexOf(checkClass) != -1;
+		}
+		
+		return accessor;
+	}
+
+	var initClass=function(methodSetArr, index, accessor, arguments){
+		if(methodSetArr[index].hasOwnProperty('init')){
+			methodSetArr[index].init.apply(accessor, arguments);
+		}else if(methodSetArr[index].hasOwnProperty('$init')){
+			methodSetArr[index].$init.apply(accessor, arguments);
+		}else if(methodSetArr[index].hasOwnProperty('_init')){
+			methodSetArr[index]._init.apply(accessor, arguments);
+		} 
+		accessor.__initialized=true;
+	}
+
+	var checkSafeInstance=function(extendedModule, intf){
+		for(var prop in extendedModule){
+			if(extendedModule[prop] == ABSTRACT()){
+				throw new Error('WARN:: some methods have not been implemented '+prop);
+			}
+		}
+		
+		for(var prop in intf){
+			if(!extendedModule[prop]) throw new Error('some methods have not been implemented '+prop);
+		}
+	}
+
+	var checkSafeClass=function(methodSetArr, intf){
+		var registeredMethodSet={};
+		for(var i=0; i<methodSetArr.length; i++){
+			var methodSet=methodSetArr[i];
+			for(var prop in methodSet){
+				registeredMethodSet[prop]=true;
+			}
+		}
+		
+		
+		for(var prop in intf){
+			if(!registeredMethodSet[prop]) throw new Error('some methods have not been implemented '+prop);
+		}
+		
+	}
+
+	var getCombinedIntf=function(intfArr){
+		if(! (intfArr instanceof Array)) intfArr = [intfArr];
+		var combinedIntf={};
+		for(var i=0; i<intfArr.length; i++){
+			var tIntf = intfArr[i];
+			for(var prop in tIntf){
+				combinedIntf[prop]=tIntf[prop];
+			}
+		}
+		return combinedIntf;
+	}
+
+	var cloneModule=function(module){
+		var nModule = {};
+		for(var prop in module){
+			nModule[prop]=module[prop];
+		}
+		return nModule;
+	}
+
+	var Class=function(module){
+		var rtn=function(){
+			if(!(this instanceof rtn)){ 
+				var f=arguments[0];
+				if(f instanceof Function){
+					f['_']=rtn;
+					return f;
+				}
+				throw new Error('Class must be initialized with new operator');
+			}
+			var attrSetArr = genAttrSet(classArr);
+			var extendedModule = getExtendedModule(methodSetArr, attrSetArr);
+			checkSafeInstance(extendedModule, rtn.__intf);
+			var accessor = genAccessor(extendedModule, methodSetArr, attrSetArr, classArr);
+			
+			initClass(methodSetArr, methodSetArr.length-1, accessor, arguments);
+			
+			return accessor;
+		}
+		if(module.__baseClass) rtn.__baseClass = module.__baseClass;
+		rtn.__methodSet=genMethodSet(module, rtn);
+		rtn.__attrTemp=genAttrTemp(module);
+		rtn.__module=module;
+		rtn.__staticSet = genStaticPropSet(module, rtn);
+		rtn.__intf=module.__intf;
+		
+		var classArr=getClassArr(rtn);
+		var methodSetArr = getMethodSetArr(classArr);
+		checkSafeClass(methodSetArr, rtn.__intf);
+		return rtn;
+	}
+
+	Class.extends=function(baseClass){
+		var rtn=function(module){
+			var nModule = cloneModule(module);
+			nModule.__baseClass=baseClass;
+			return Class(nModule);
+		}
+		rtn.implements=function(intfArr){
+			return function(module){			
+				var nModule = cloneModule(module);
+				nModule.__baseClass=baseClass;
+				nModule.__intf=getCombinedIntf(intfArr);
+				return Class(nModule);
+			}
+		}	
+		return rtn;
+	}
+
+	Class.implements=function(intfArr){	
+		var combinedIntf=getCombinedIntf(intfArr);
+		return function(module){
+			module.__intf=combinedIntf;
+			return Class(module);
+		}
+	}
+
+	Class.pretends=function(baseClass){
+		var rtn=function(mModule){
+			var nModule = cloneModule(baseClass.__module);
+			for(var prop in mModule){
+				nModule[prop] = mModule[prop];
+			}
+			return Class(nModule);
+		}
+		rtn.implements=function(intfArr){
+			return function(mModule){		
+				var nModule = cloneModule(baseClass.__module);
+				for(var prop in mModule){
+					nModule[prop] = mModule[prop];
+				}
+				nModule.__intf=getCombinedIntf(intfArr);
+				return Class(nModule);		
+			}
+		}
+		return rtn;
+	}
+
+	var Interface=function(intf){
+		var rtn={};
+		for(var prop in intf){
+			if(prop[0]=='_') throw new Error('Interface cannot delare private methods; invalid method '+prop);
+			if(intf[prop] != ABSTRACT() && intf[prop]!=EVENT) throw new Error('Interface methods must be abstract; invalidmethod '+prop);
+			rtn[prop] = ABSTRACT();
+		}
+		return rtn;
+	}
+	Interface.extends=function(intfArr){
+		if(! (intfArr instanceof Array)) intfArr = [intfArr];
+		
+		return function(intf){
+			intfArr.push(intf);
+			var combinedIntf={};
+			for(var i=0; i<intfArr.length; i++){
+				var tIntf = intfArr[i];
+				for(var prop in tIntf){
+					combinedIntf[prop]=tIntf[prop];
+				}
+			}
+			return Interface(combinedIntf);
+		}
+	}
+
+	var global_stack;
+	if (typeof window !== "undefined"){
+		global_stack=window;
+	}else if (typeof GLOBAL !== "undefined"){
+		global_stack=GLOBAL;
+	}
+	global_stack.ABSTRACT=ABSTRACT;
+	global_stack.READ=READ;
+	global_stack.CONST=CONST;
+	global_stack.EVENT=EVENT;
+	global_stack.FINAL=FINAL;
+	global_stack.Class=Class;
+	global_stack.Interface=Interface;
+})()
