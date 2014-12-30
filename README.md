@@ -1,6 +1,7 @@
 ZNOW
 ====
 Although JavaScript supports object-oriented programming, it is in prototype-based form. ZNOW is a framework allows programmers to write JavaScript in class-based object oriented style. Use prototype or class-based style is the option of the programmer, and not be restricted by the language itself anymore.
+http://icarusso.github.io/ZNOW
 
 Encapsulation
 ---
@@ -56,3 +57,4 @@ var ClassB=Class.extends(ClassA)({
 	}
 })
 ```
+http://icarusso.github.io/ZNOW
