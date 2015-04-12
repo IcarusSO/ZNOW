@@ -1,8 +1,8 @@
 /**
- * ZNOW JavaScript Framework v0.2.1
+ * ZNOW JavaScript Framework v0.3.0
  * Copyright 2014, Icarus So
  * Licensed under the MIT or GPL Version 2 licenses.
- * Date: Dec 29 2014
+ * Date: Apr 12 2015
  *
  * Copyright (C) 2014 by Icarus So
  *
@@ -107,14 +107,19 @@
 				if(methodSet.hasOwnProperty(prop)) continue;
 				if(/^[_|$]?init$/.test(prop)) continue;
 			
+				console.log('base', prop, baseMethodSet[prop]);
 				if(module[prop]==ABSTRACT()){
 					methodSet[prop]=ABSTRACT();
 					continue;
 				}
 				
-				methodSet[prop]=function(prop){
-					return function(){ return baseMethodSet[prop].apply(this, arguments);}
-				}(prop);
+				if(baseMethodSet[prop] == ABSTRACT()){
+					methodSet[prop] = ABSTRACT();
+				}else{
+					methodSet[prop]=function(prop){
+						return function(){ return baseMethodSet[prop].apply(this, arguments);}
+					}(prop);
+				}
 			}
 		}
 		
@@ -629,13 +634,19 @@
 		return accessor;
 	}
 
-	var initClass=function(methodSetArr, index, accessor, arguments){
+	var initClass=function(methodSetArr, index, accessor, arguments, classArr){
+		var i;
+		if(classArr){i=checkCaller(arguments.callee.caller, classArr);}
 		if(methodSetArr[index].hasOwnProperty('init')){
 			methodSetArr[index].init.apply(accessor, arguments);
 		}else if(methodSetArr[index].hasOwnProperty('$init')){
-			methodSetArr[index].$init.apply(accessor, arguments);
+			if(i == -1){
+				throw new Error('accessing protected constructor');			
+			}else methodSetArr[index].$init.apply(accessor, arguments);
 		}else if(methodSetArr[index].hasOwnProperty('_init')){
-			methodSetArr[index]._init.apply(accessor, arguments);
+			if(i ==-1){
+				throw new Error('accessing private constructor');
+			}else methodSetArr[index]._init.apply(accessor, arguments);
 		} 
 		accessor.__initialized=true;
 	}
@@ -703,7 +714,7 @@
 			checkSafeInstance(extendedModule, rtn.__intf);
 			var accessor = genAccessor(extendedModule, methodSetArr, attrSetArr, classArr);
 			
-			initClass(methodSetArr, methodSetArr.length-1, accessor, arguments);
+			initClass(methodSetArr, methodSetArr.length-1, accessor, arguments, classArr);
 			
 			return accessor;
 		}
