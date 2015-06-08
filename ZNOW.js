@@ -31,14 +31,16 @@
         module.exports = factory();
     } else { // Browser globals
         root.ZNOW = factory();
+        for(var property in root.ZNOW) {
+        	root[property]=root.ZNOW[property];
+        }
     }
 }(this, function () {
 
 	if (typeof console === "undefined" || typeof console.warn === "undefined"){
 		console={};
 		console.warn=function(){};
-	}
-
+	}	
 
 	var __ZNOW__abastract=function(){/*ABSTRACT*/}
 	var ABSTRACT=function(){ return __ZNOW__abastract;};
@@ -411,7 +413,8 @@
 			return classArr.indexOf(caller['_']);
 		}
 		if(depth>20) return -1; //prevent infinite loop (ex. when AMD)
-		return checkCaller(caller.caller, classArr, ++depth);	
+		return checkCaller(caller.caller, classArr, ++depth);
+	
 	}
 
 	var checkAbstractExpt=function(index, prop, methodSetArr){
@@ -825,12 +828,7 @@
 		}
 	}
 
-	var global_stack={};
-	/*if (typeof window !== "undefined"){
-		global_stack=window;
-	}else if (typeof GLOBAL !== "undefined"){
-		global_stack=GLOBAL;
-	}*/
+	var global_stack = {};
 	global_stack.ABSTRACT=ABSTRACT;
 	global_stack.READ=READ;
 	global_stack.CONST=CONST;
