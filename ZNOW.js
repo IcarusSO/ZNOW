@@ -1,8 +1,8 @@
 /**
- * ZNOW JavaScript Framework v0.3.0
- * Copyright 2014, Icarus So
+ * ZNOW JavaScript Framework v0.3.1
+ * Copyright 2014, Icarus So, Peter Denev
  * Licensed under the MIT or GPL Version 2 licenses.
- * Date: Apr 12 2015
+ * Date: June 08 2015
  *
  * Copyright (C) 2014 by Icarus So
  *
@@ -699,6 +699,18 @@
 		return nModule;
 	}
 
+	var getConstructorName=function(init_f){ //beta
+		if(init_f.hasOwnProperty('_') && init_f._.hasOwnProperty('__module')){
+			var init_methods = ['init','$init','_init'];
+			for(var k in init_methods){
+				if(init_f._.__module.hasOwnProperty(init_methods[k])){
+					return init_f._.__module[init_methods[k]].name;
+				}
+			}
+		}
+		return '__ANONYMOUS_ZNOW_CLASS__';		
+	}
+
 	var Class=function(module){
 		var rtn=function(){
 			if(!(this instanceof rtn)){ 
@@ -728,6 +740,7 @@
 		var classArr=getClassArr(rtn);
 		var methodSetArr = getMethodSetArr(classArr);
 		checkSafeClass(methodSetArr, rtn.__intf);
+		rtn.constructorName = getConstructorName(methodSetArr[0].init);
 		return rtn;
 	}
 
