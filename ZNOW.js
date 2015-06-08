@@ -24,8 +24,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+(function (root, factory) { // UMD from https://github.com/umdjs/umd/blob/master/returnExports.js
+    if(typeof define === 'function' && define.amd) {
+        define('ZNOW', [], factory);
+    }else if (typeof exports === 'object') {
+        module.exports = factory();
+    } else { // Browser globals
+        root.ZNOW = factory();
+    }
+}(this, function () {
 
-(function(){
 	if (typeof console === "undefined" || typeof console.warn === "undefined"){
 		console={};
 		console.warn=function(){};
@@ -396,12 +404,14 @@
 		return extendedModule;
 	}
 
-	var checkCaller=function(caller, classArr){
+	var checkCaller=function(caller, classArr, depth){
+		depth = typeof depth!=='undefined' ? depth : 0;
 		if(!caller) return -1;
 		if(caller['_']){
 			return classArr.indexOf(caller['_']);
 		}
-		return checkCaller(caller.caller, classArr);
+		if(depth>20) return -1; //prevent infinite loop (ex. when AMD)
+		return checkCaller(caller.caller, classArr, ++depth);	
 	}
 
 	var checkAbstractExpt=function(index, prop, methodSetArr){
@@ -815,12 +825,12 @@
 		}
 	}
 
-	var global_stack;
-	if (typeof window !== "undefined"){
+	var global_stack={};
+	/*if (typeof window !== "undefined"){
 		global_stack=window;
 	}else if (typeof GLOBAL !== "undefined"){
 		global_stack=GLOBAL;
-	}
+	}*/
 	global_stack.ABSTRACT=ABSTRACT;
 	global_stack.READ=READ;
 	global_stack.CONST=CONST;
@@ -828,4 +838,7 @@
 	global_stack.FINAL=FINAL;
 	global_stack.Class=Class;
 	global_stack.Interface=Interface;
-})()
+
+	return global_stack;
+
+}));
