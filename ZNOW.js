@@ -145,15 +145,17 @@
 				if(/^static./.test(prop)) continue;
 				if(module[prop] instanceof Function && module[prop]!=EVENT ) continue;
 				if(/^__/.test(prop)) continue;
-				if(module[prop].__read){
-					this[prop]=module[prop].val;
-					this['__read'+prop]=true;
-					continue;
-				}
-				if(module[prop].__const){
-					this[prop]=module[prop].val;
-					this['__const'+prop]=true;
-					continue;				
+				if(module[prop]!=null && typeof module[prop]!=='undefined'){
+					if(module[prop].__read){
+						this[prop]=module[prop].val;
+						this['__read'+prop]=true;
+						continue;
+					}
+					if(module[prop].__const){
+						this[prop]=module[prop].val;
+						this['__const'+prop]=true;
+						continue;				
+					}
 				}
 				if(module[prop]==EVENT ){
 					this['$$'+prop]=[];
@@ -826,17 +828,16 @@
 			}
 			return Interface(combinedIntf);
 		}
+	}	
+
+	return {
+		ABSTRACT:ABSTRACT,
+		READ:READ,
+		CONST:CONST,
+		EVENT:EVENT,
+		FINAL:FINAL,
+		Class:Class,
+		Interface:Interface
 	}
-
-	var global_stack = {};
-	global_stack.ABSTRACT=ABSTRACT;
-	global_stack.READ=READ;
-	global_stack.CONST=CONST;
-	global_stack.EVENT=EVENT;
-	global_stack.FINAL=FINAL;
-	global_stack.Class=Class;
-	global_stack.Interface=Interface;
-
-	return global_stack;
 
 }));
