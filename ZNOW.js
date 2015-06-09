@@ -40,7 +40,7 @@
 	if (typeof console === "undefined" || typeof console.warn === "undefined"){
 		console={};
 		console.warn=function(){};
-	}	
+	}
 
 	var __ZNOW__abastract=function(){/*ABSTRACT*/}
 	var ABSTRACT=function(){ return __ZNOW__abastract;};
@@ -117,7 +117,7 @@
 				if(methodSet.hasOwnProperty(prop)) continue;
 				if(/^[_|$]?init$/.test(prop)) continue;
 			
-				console.log('base', prop, baseMethodSet[prop]);
+				//console.log('base', prop, baseMethodSet[prop]);
 				if(module[prop]==ABSTRACT()){
 					methodSet[prop]=ABSTRACT();
 					continue;
@@ -166,7 +166,7 @@
 			if(baseAttrSet){
 				for(var prop in baseAttrSet){
 					if(prop[0]=='_') continue;
-					if(module[prop]) continue;				
+					if(module[prop]) continue;
 					Object.defineProperty(this, prop, {
 						get:function(prop){
 							return function(){
@@ -416,7 +416,6 @@
 		}
 		if(depth>20) return -1; //prevent infinite loop (ex. when AMD)
 		return checkCaller(caller.caller, classArr, ++depth);
-	
 	}
 
 	var checkAbstractExpt=function(index, prop, methodSetArr){
@@ -469,8 +468,8 @@
 								return methodSetArr[index][prop].apply(accessor, arguments);
 							}else{
 								// instance has no such method
-								if(prop[0]=='_' || prop[0]=='$'){
-									console.warn('WARN:: base accessing extended private or protected method '+prop);							
+								if(prop[0]=='_'){
+									console.warn('WARN:: base accessing extended private method '+prop);							
 								}else{
 									var index=methodSetArr.length-1;
 									return methodSetArr[index][prop].apply(accessor, arguments);							
@@ -483,31 +482,32 @@
 				Object.defineProperty(accessor, prop, {
 					get:function(prop){
 						return function(){
-							var index=checkCaller(arguments.callee.caller, classArr);
-							if(index==-1){
-								// public access
-								if(prop[0]=='_' || prop[0]=='$'){
-									console.warn('WARN:: public accessing private or protected method '+prop);	
-								}else{
-									var index=attrSetArr.length-1;
-									return attrSetArr[index][prop];
-								}
-							}else{
+							var caller_index=checkCaller(arguments.callee.caller, classArr);													
+							var index = attrSetArr.length-1;
+							while(index>=0){ // from last class to fist base
 								if(attrSetArr[index].hasOwnProperty(prop)){
-									return attrSetArr[index][prop];
-								}else{
-									// instance has no such attribute
-									if(prop[0]=='_' || prop[0]=='$'){
-										console.warn('WARN:: base accessing extended private or protected attribute '+prop);							
+									//from last class
+									if((prop[0]=='_' || prop[0]=='$') && caller_index==-1){
+										console.warn('WARN:: public accessing private or protected method '+prop);
+										break;	
+									}else if(prop[0]=='_' && caller_index!=index){
+										if(caller_index>index){
+											console.warn('WARN:: class accessing base private attribute '+prop);
+											break;											
+										}else{
+											console.warn('WARN:: base accessing extended private attribute '+prop);
+											break;	
+										}							
 									}else{
-										var index=methodSetArr.length-1;
-										return attrSetArr[index][prop];						
-									}							
+										return attrSetArr[index][prop];
+									}
+								}else{
+									index--;
 								}
 							}
 						}
 					}(prop),
-					set:function(prop){
+					set:function(prop){ //todo: ? recursive set, but to what prop
 						return function(value){
 							var index=checkCaller(arguments.callee.caller, classArr);
 							if(index==-1){
@@ -521,22 +521,22 @@
 										return;
 									}
 									if(accessor.__initialized && attrSetArr[index]['__const'+prop]){
-										console.warn('WARN:: cannot change cost attribute '+prop);
+										console.warn('WARN:: cannot change const attribute '+prop);
 										return;
 									}
 									return (attrSetArr[index][prop]=value);
 								}
 							}else{
 								if(accessor.__initialized && attrSetArr[index]['__const'+prop]){
-									console.warn('WARN:: cannot change cost attribute '+prop);
+									console.warn('WARN:: cannot change const attribute '+prop);
 									return;
 								}
 								if(attrSetArr[index].hasOwnProperty(prop)){
 									return (attrSetArr[index][prop]=value);
 								}else{
 									// instance has no such attribute
-									if(prop[0]=='_' || prop[0]=='$'){
-										console.warn('WARN:: base accessing extended private or protected attribute '+prop);							
+									if(prop[0]=='_'){
+										console.warn('WARN:: base accessing extended private attribute '+prop);							
 									}else{
 										var index=methodSetArr.length-1;
 										if(attrSetArr[index]['__read'+prop]){
@@ -643,7 +643,8 @@
 		
 		accessor.class=classArr[classArr.length-1];
 		accessor.instanceOf=function(checkClass){
-			return classArr.indexOf(checkClass) != -1;
+			return classArr.indexOf(checkClass) != -1 ||
+				accessor.class.__interfaceSet.indexOf(checkClass) != -1;
 		}
 		
 		return accessor;
@@ -744,6 +745,7 @@
 			return accessor;
 		}
 		if(module.__baseClass) rtn.__baseClass = module.__baseClass;
+		rtn.__interfaceSet = (module.__interfaceSet) ? module.__interfaceSet : [];
 		rtn.__methodSet=genMethodSet(module, rtn);
 		rtn.__attrTemp=genAttrTemp(module);
 		rtn.__module=module;
@@ -761,13 +763,21 @@
 		var rtn=function(module){
 			var nModule = cloneModule(module);
 			nModule.__baseClass=baseClass;
+			nModule.__interfaceSet=baseClass.__interfaceSet.slice(0);
 			return Class(nModule);
 		}
 		rtn.implements=function(intfArr){
+			var interfaceSet= intfArr instanceof Array ? intfArr : [intfArr];
 			return function(module){			
 				var nModule = cloneModule(module);
 				nModule.__baseClass=baseClass;
 				nModule.__intf=getCombinedIntf(intfArr);
+				nModule.__interfaceSet=baseClass.__interfaceSet.slice(0);
+				for(var i in interfaceSet){
+					if(nModule.__interfaceSet.indexOf(interfaceSet[i])==-1){
+						nModule.__interfaceSet.push(interfaceSet[i])
+					}
+				}
 				return Class(nModule);
 			}
 		}	
@@ -776,8 +786,10 @@
 
 	Class.implements=function(intfArr){	
 		var combinedIntf=getCombinedIntf(intfArr);
+		var interfaceSet= intfArr instanceof Array ? intfArr : [intfArr];
 		return function(module){
 			module.__intf=combinedIntf;
+			module.__interfaceSet=interfaceSet;
 			return Class(module);
 		}
 	}
@@ -807,7 +819,7 @@
 		var rtn={};
 		for(var prop in intf){
 			if(prop[0]=='_') throw new Error('Interface cannot delare private methods; invalid method '+prop);
-			if(intf[prop] != ABSTRACT() && intf[prop]!=EVENT) throw new Error('Interface methods must be abstract; invalidmethod '+prop);
+			if(intf[prop] != ABSTRACT() && intf[prop]!=EVENT) throw new Error('Interface methods must be abstract; invalid method '+prop);
 			rtn[prop] = ABSTRACT();
 		}
 		return rtn;
@@ -826,7 +838,7 @@
 			}
 			return Interface(combinedIntf);
 		}
-	}	
+	}
 
 	return {
 		ABSTRACT:ABSTRACT,
