@@ -714,16 +714,14 @@
 		return nModule;
 	}
 
-	var getConstructorName=function(init_f){ //beta
-		if(init_f.hasOwnProperty('_') && init_f._.hasOwnProperty('__module')){
-			var init_methods = ['init','$init','_init'];
-			for(var k in init_methods){
-				if(init_f._.__module.hasOwnProperty(init_methods[k])){
-					return init_f._.__module[init_methods[k]].name;
-				}
+	var getConstructorName=function(module){ //beta
+		var init_methods = ['init','$init','_init'];
+		for(var k in init_methods){
+			if(module.hasOwnProperty(init_methods[k])){
+				return module[init_methods[k]].name;
 			}
-		}
-		return '__ANONYMOUS_ZNOW_CLASS__';		
+		}		
+		return '__ANONYMOUS_ZNOW_CLASS__';
 	}
 
 	var Class=function(module){
@@ -755,7 +753,7 @@
 		var classArr=getClassArr(rtn);
 		var methodSetArr = getMethodSetArr(classArr);
 		checkSafeClass(methodSetArr, rtn.__intf);
-		rtn.constructorName = getConstructorName(methodSetArr[0].init);
+		rtn.constructorName = getConstructorName(rtn.__module);
 		return rtn;
 	}
 
